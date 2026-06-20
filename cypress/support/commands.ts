@@ -1,0 +1,4 @@
+// Custom Cypress commands can be added here
+// Example: Cypress.Commands.add('login', (username, password) => { ... })
+
+export {};

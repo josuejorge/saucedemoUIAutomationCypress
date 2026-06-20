@@ -1,0 +1,16 @@
+{
+  "name": "saucedemo-ui-automation-cypress",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:headed": "cypress run --headed"
+  },
+  "devDependencies": {
+    "cypress": "^15.17.0",
+    "typescript": "^5.0.0"
+  },
+  "allowScripts": {
+    "cypress@15.17.0": true
+  }
+}
