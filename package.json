@@ -4,11 +4,13 @@
   "scripts": {
     "test": "cypress run",
     "test:open": "cypress open",
-    "test:headed": "cypress run --headed"
+    "test:headed": "cypress run --headed",
+    "test:parallel": "cypress-parallel -s test -t 4 -d cypress/e2e"
   },
   "devDependencies": {
     "allure-cypress": "^3.10.0",
     "cypress": "^15.17.0",
+    "cypress-parallel": "^0.9.1",
     "typescript": "^5.0.0"
   },
   "allowScripts": {
