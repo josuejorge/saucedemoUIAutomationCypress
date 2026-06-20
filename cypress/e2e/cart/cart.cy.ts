@@ -1,20 +1,11 @@
 import { homePage } from '../../pages/HomePage';
 import { cartPage } from '../../pages/CartPage';
 import { checkoutPage } from '../../pages/CheckoutPage';
-
-const VALID_USER     = 'standard_user';
-const VALID_PASSWORD = 'secret_sauce';
-const FIRST_NAME     = 'John';
-const LAST_NAME      = 'Doe';
-const ZIP_CODE       = '12345';
+import checkout from '../../fixtures/checkout.json';
 
 describe('Cart / Checkout', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.get('#user-name').type(VALID_USER);
-    cy.get('#password').type(VALID_PASSWORD);
-    cy.get('#login-button').click();
-    cy.url().should('include', '/inventory.html');
+    cy.login();
     homePage.addFirstItemToCart();
   });
 
@@ -41,7 +32,11 @@ describe('Cart / Checkout', () => {
     cartPage.navigate();
     cartPage.checkout();
     cy.url().should('include', '/checkout-step-one.html');
-    checkoutPage.fillInfo(FIRST_NAME, LAST_NAME, ZIP_CODE);
+    checkoutPage.fillInfo(
+      checkout.validInfo.firstName,
+      checkout.validInfo.lastName,
+      checkout.validInfo.postalCode,
+    );
     checkoutPage.continue();
     cy.url().should('include', '/checkout-step-two.html');
     checkoutPage.orderItems.should('have.length', 1);

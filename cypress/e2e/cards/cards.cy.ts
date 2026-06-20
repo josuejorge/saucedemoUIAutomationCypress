@@ -1,16 +1,9 @@
 import { homePage } from '../../pages/HomePage';
 import { productPage } from '../../pages/ProductPage';
 
-const VALID_USER     = 'standard_user';
-const VALID_PASSWORD = 'secret_sauce';
-
 describe('Cards / Produtos', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.get('#user-name').type(VALID_USER);
-    cy.get('#password').type(VALID_PASSWORD);
-    cy.get('#login-button').click();
-    cy.url().should('include', '/inventory.html');
+    cy.login();
   });
 
   it('Validar Card de produto na home', () => {

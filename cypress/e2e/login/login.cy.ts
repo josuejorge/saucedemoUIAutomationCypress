@@ -1,10 +1,6 @@
 import { loginPage } from '../../pages/LoginPage';
 import { homePage } from '../../pages/HomePage';
-
-const VALID_USER     = 'standard_user';
-const VALID_PASSWORD = 'secret_sauce';
-const LOCKED_USER    = 'locked_out_user';
-const WRONG_PASSWORD = 'wrong_password';
+import users from '../../fixtures/users.json';
 
 describe('Login Page', () => {
   beforeEach(() => {
@@ -24,13 +20,13 @@ describe('Login Page', () => {
   });
 
   it('Validar Login Com Sucesso', () => {
-    loginPage.login(VALID_USER, VALID_PASSWORD);
+    loginPage.login(users.validUser.username, users.validUser.password);
     cy.url().should('include', '/inventory.html');
     homePage.inventoryList.should('be.visible');
   });
 
   it('Validar Login Com Falha', () => {
-    loginPage.login(VALID_USER, WRONG_PASSWORD);
+    loginPage.login(users.wrongCredentials.username, users.wrongCredentials.password);
     loginPage.errorMessage
       .should('be.visible')
       .and('contain.text', 'Username and password do not match any user in this service');
@@ -44,14 +40,14 @@ describe('Login Page', () => {
   });
 
   it('Validar Login Com Usuario Bloqueado', () => {
-    loginPage.login(LOCKED_USER, VALID_PASSWORD);
+    loginPage.login(users.lockedUser.username, users.lockedUser.password);
     loginPage.errorMessage
       .should('be.visible')
       .and('contain.text', 'Sorry, this user has been locked out');
   });
 
   it('Validar Logout', () => {
-    loginPage.login(VALID_USER, VALID_PASSWORD);
+    loginPage.login(users.validUser.username, users.validUser.password);
     cy.url().should('include', '/inventory.html');
     homePage.logout();
     cy.url().should('eq', 'https://www.saucedemo.com/');
